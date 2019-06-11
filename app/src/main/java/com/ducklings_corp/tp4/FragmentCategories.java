@@ -24,15 +24,6 @@ public class FragmentCategories extends Fragment {
     public ArrayList<String> categories;
     ArrayAdapter<String> categoriesAdapter;
     View view;
-    Context _hostActivityContext;
-
-    public FragmentCategories() {
-
-    }
-    public FragmentCategories(Context hostActivityContext) {
-
-        _hostActivityContext = hostActivityContext;
-    }
 
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         Bundle arguments;
@@ -44,7 +35,7 @@ public class FragmentCategories extends Fragment {
         categories= new ArrayList<>();
         categoriesAdapter= new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
 
-//        (new GetCategories()).execute();
+        (new GetCategories()).execute();
 
 
         return view;
