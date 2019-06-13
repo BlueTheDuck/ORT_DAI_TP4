@@ -29,14 +29,12 @@ public class FragmentCategories extends Fragment {
         Bundle arguments;
         arguments = getArguments();
 
-            view = layoutInflater.inflate(R.layout.categories_fragment,viewGroup,false);
-
+        view = layoutInflater.inflate(R.layout.categories_fragment,viewGroup,false);
 
         categories= new ArrayList<>();
         categoriesAdapter= new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
 
         (new GetCategories()).execute();
-
 
         return view;
     }
@@ -73,7 +71,7 @@ public class FragmentCategories extends Fragment {
             super.onPostExecute(v);
 
             ListView listView = view.findViewById(R.id.categoriesList);
-
+            listView.setAdapter(categoriesAdapter);
         }
     }
 

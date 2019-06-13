@@ -2,19 +2,49 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscador"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="by_catg"
+            android:text="Por categoria"
+            android:onClick="search"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="by_text"
+            android:text="Por texto"
+            android:onClick="search"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="by_loc"
+            android:text="Por lugar"
+            android:onClick="search"/>
+    </LinearLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/categories">
+        android:id="@+id/categories"
+        android:visibility="gone">
     </FrameLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name">
+        android:id="@+id/name"
+        android:visibility="gone">
     </FrameLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/geolocation">
+        android:id="@+id/geolocation"
+        android:visibility="gone">
     </FrameLayout>
 </LinearLayout>
