@@ -1,11 +1,8 @@
 package com.ducklings_corp.tp4;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.AndroidException;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +41,7 @@ public class FragmentCategories extends Fragment {
             URL url;
             HttpURLConnection cnx;
             try {
-                url = new URL("https://epok.buenosaires.gob.ar/getCategorias/");
+                url = new URL("http://epok.buenosaires.gob.ar/getCategorias/");
                 cnx = (HttpURLConnection) url.openConnection();
                 Log.d("EPOK", "Cnx");
                 if (cnx.getResponseCode() == 200) {

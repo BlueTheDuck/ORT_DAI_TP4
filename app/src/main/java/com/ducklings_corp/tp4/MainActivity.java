@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import java.util.Collections;
+
 public class MainActivity extends Activity {
     FragmentManager manager;
     FragmentTransaction transaction;
@@ -22,7 +24,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        createFragment(R.id.categoriesFragment,new FragmentCategories());
+        createFragment(R.id.categoriesFragment,new FragmentCategories(),"categories");
+        createFragment(R.id.placesFragment,new FragmentPlaces(),"places");
     }
 
     public void search(View view) {
@@ -34,10 +37,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void createFragment(int id,Fragment fragment) {
+    private void createFragment(int id,Fragment fragment, String tag) {
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.replace(id,fragment);
+        transaction.replace(id,fragment,tag);
         transaction.commit();
     }
 
@@ -49,5 +52,7 @@ public class MainActivity extends Activity {
     public void setCategory(String category) {
         _category = category;
         Log.d("Var set",String.format("_category = %s",category));
+        findViewById(R.id.categoriesFragment).setVisibility(View.INVISIBLE);
+        ((FragmentPlaces)manager.findFragmentByTag("places")).update();
     }
 }
