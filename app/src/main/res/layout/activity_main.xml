@@ -13,7 +13,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="by_catg"
+            android:tag="by_cat"
             android:text="Por categoria"
             android:onClick="search"/>
         <Button
@@ -32,19 +32,25 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/categories"
+        android:id="@+id/categoriesFragment"
         android:visibility="gone">
     </FrameLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name"
+        android:id="@+id/nameFragment"
         android:visibility="gone">
     </FrameLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/geolocation"
+        android:id="@+id/geolocationFragment"
+        android:visibility="gone">
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/placesFragment"
         android:visibility="gone">
     </FrameLayout>
 </LinearLayout>

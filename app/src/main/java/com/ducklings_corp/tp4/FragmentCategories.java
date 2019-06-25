@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,9 +27,6 @@ public class FragmentCategories extends Fragment {
     View view;
 
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        Bundle arguments;
-        arguments = getArguments();
-
         view = layoutInflater.inflate(R.layout.categories_fragment,viewGroup,false);
 
         categories= new ArrayList<>();
@@ -46,7 +44,7 @@ public class FragmentCategories extends Fragment {
             URL url;
             HttpURLConnection cnx;
             try {
-                url = new URL("http://epok.buenosaires.gob.ar/getCategorias/");
+                url = new URL("https://epok.buenosaires.gob.ar/getCategorias/");
                 cnx = (HttpURLConnection) url.openConnection();
                 Log.d("EPOK", "Cnx");
                 if (cnx.getResponseCode() == 200) {
@@ -72,6 +70,7 @@ public class FragmentCategories extends Fragment {
 
             ListView listView = view.findViewById(R.id.categoriesList);
             listView.setAdapter(categoriesAdapter);
+            listView.setOnItemClickListener(onClickAdapterListener);
         }
     }
 
@@ -114,4 +113,11 @@ public class FragmentCategories extends Fragment {
         }
     }
 
+    AdapterView.OnItemClickListener onClickAdapterListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int selected, long l) {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.setCategory(categories.get(selected));
+        }
+    };
 }

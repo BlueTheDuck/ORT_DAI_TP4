@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -13,16 +14,15 @@ import android.widget.FrameLayout;
 public class MainActivity extends Activity {
     FragmentManager manager;
     FragmentTransaction transaction;
+
+    private String _category;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        manager = getFragmentManager();
-        Fragment fragmentCategories = new FragmentCategories();
-        transaction = manager.beginTransaction();
-        transaction.replace(R.id.categories,fragmentCategories);
-        transaction.commit();
+        createFragment(R.id.categoriesFragment,new FragmentCategories());
     }
 
     public void search(View view) {
@@ -34,7 +34,20 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void createFragment(int id,Fragment fragment) {
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.replace(id,fragment);
+        transaction.commit();
+    }
+
     private void searchByCat() {
-        FrameLayout categoryFragment = findViewById(R.id.categories);
+        FrameLayout categoryFragment = findViewById(R.id.categoriesFragment);
+        categoryFragment.setVisibility(View.VISIBLE);
+    }
+
+    public void setCategory(String category) {
+        _category = category;
+        Log.d("Var set",String.format("_category = %s",category));
     }
 }
