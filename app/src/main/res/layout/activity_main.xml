@@ -38,7 +38,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nameFragment"
+        android:id="@+id/textFragment"
         android:visibility="gone">
     </FrameLayout>
     <FrameLayout

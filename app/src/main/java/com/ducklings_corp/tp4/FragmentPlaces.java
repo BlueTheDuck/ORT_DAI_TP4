@@ -21,7 +21,8 @@ public class FragmentPlaces extends Fragment {
     public ArrayList<String> places;
     ArrayAdapter<String> placesAdapter;
     View view;
-    public String urlString = "";
+    String urlSearch = "http://epok.buenosaires.gob.ar/buscar/?texto=%s";
+    String _toSearch;
 
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         view = layoutInflater.inflate(R.layout.places_fragment,viewGroup,false);
@@ -32,8 +33,10 @@ public class FragmentPlaces extends Fragment {
         return view;
     }
 
-    public void update() {
+    public void update(String toSearch) {
+        _toSearch = toSearch;
 
+        (new GetPlaces()).execute();
     }
 
     private class GetPlaces extends AsyncTask<Void,Void,Void> {
@@ -42,9 +45,9 @@ public class FragmentPlaces extends Fragment {
             URL url;
             HttpURLConnection cnx;
             try {
-                url = new URL(urlString);
+                url = new URL(String.format(urlSearch,_toSearch));
                 cnx = (HttpURLConnection) url.openConnection();
-                Log.d("EPOK","Cnx");
+                Log.d("EPOK-S","Cnx");
                 if(cnx.getResponseCode()==200) {
                     InputStream body;
                     InputStreamReader reader;
@@ -52,9 +55,11 @@ public class FragmentPlaces extends Fragment {
                     body = cnx.getInputStream();
                     reader = new InputStreamReader(body,"UTF-8");
                     streamToJson(reader);
+                } else {
+                    Log.d("EPOK-S", "Non 200 code");
                 }
             } catch (Exception e) {
-                Log.d("EPOK","Error: "+e.getMessage());
+                Log.d("EPOK-S","Error: "+e.getMessage());
             }
             return null;
         }
@@ -73,6 +78,7 @@ public class FragmentPlaces extends Fragment {
 
         jsonReader = new JsonReader(stream);
         try {
+            Log.d("Json-S","Starting parsing");
             jsonReader.beginObject();
 
             jsonReader.nextName();//totalFull
@@ -108,6 +114,8 @@ public class FragmentPlaces extends Fragment {
             jsonReader.skipValue();
 
             jsonReader.endObject();
+
+            Log.d("Json-S","Finished parsing");
         } catch (Exception e) {
             Log.d("Json","Error: "+e.getMessage());
         }

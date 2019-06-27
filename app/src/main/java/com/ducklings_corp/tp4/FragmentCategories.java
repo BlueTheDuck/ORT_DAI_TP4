@@ -67,7 +67,7 @@ public class FragmentCategories extends Fragment {
 
             ListView listView = view.findViewById(R.id.categoriesList);
             listView.setAdapter(categoriesAdapter);
-            listView.setOnItemClickListener(onClickAdapterListener);
+            listView.setOnItemClickListener(onItemClickListener);
         }
     }
 
@@ -79,6 +79,7 @@ public class FragmentCategories extends Fragment {
         categoriesDownloaded = -1;
 
         try {
+            Log.d("Json","Starting parsing");
             jsonReader.beginObject();
 
             jsonReader.nextName();//cantidad_de_categorias
@@ -110,11 +111,12 @@ public class FragmentCategories extends Fragment {
         }
     }
 
-    AdapterView.OnItemClickListener onClickAdapterListener = new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int selected, long l) {
             MainActivity activity = (MainActivity) getActivity();
             activity.setCategory(categories.get(selected));
+            Log.d("","Setted category");
         }
     };
 }
