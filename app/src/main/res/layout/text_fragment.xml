@@ -5,10 +5,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lugares encontrados"
+        android:text="Buscar por texto"
         android:textSize="14pt"/>
-    <ListView
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/places"></ListView>
+        android:layout_height="wrap_content"
+        android:hint="Texto..."
+        android:id="@+id/text"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar"
+        android:onClick=""
+        android:id="@+id/textSearchButton"/>
 </LinearLayout>

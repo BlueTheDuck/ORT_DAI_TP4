@@ -43,22 +43,22 @@ public class FragmentCategories extends Fragment {
             try {
                 url = new URL("http://epok.buenosaires.gob.ar/getCategorias/");
                 cnx = (HttpURLConnection) url.openConnection();
-                Log.d("EPOK", "Cnx");
+                Log.d("Epok-C", "Cnx");
                 if (cnx.getResponseCode() == 200) {
                     InputStream body;
                     InputStreamReader reader;
 
-                    Log.d("EPOK", "200 OK");
+                    Log.d("Epok-C", "200 OK");
 
                     body = cnx.getInputStream();
                     reader = new InputStreamReader(body, "UTF-8");
                     streamToJson(reader);
                 } else {
-                    Log.d("EPOK", "Non 200 code");
+                    Log.d("Epok-C", "Non 200 code");
                 }
                 cnx.disconnect();
             } catch (Exception error) {
-                Log.d ("EPOK",error.getMessage());
+                Log.d ("Epok-C",error.getMessage());
             }
             return null;
         }
@@ -79,12 +79,12 @@ public class FragmentCategories extends Fragment {
         categoriesDownloaded = -1;
 
         try {
-            Log.d("Json","Starting parsing");
+            Log.d("Json-C","Starting parsing");
             jsonReader.beginObject();
 
             jsonReader.nextName();//cantidad_de_categorias
             categoriesDownloaded = jsonReader.nextInt();
-            Log.d("EPOK",String.format("Categories downloaded: %s",categoriesDownloaded));
+            Log.d("Epok-C",String.format("Categories downloaded: %s",categoriesDownloaded));
 
             jsonReader.nextName();//categorias
             jsonReader.beginArray();
@@ -93,10 +93,10 @@ public class FragmentCategories extends Fragment {
                 //Log.d("Json",jsonReader.nextName());
                 while (jsonReader.hasNext()) {
                     String name = jsonReader.nextName();
-                    Log.d("Json",name);
+                    Log.d("Json-C",name);
                     if(name.compareTo("nombre")==0) {
                         categories.add(jsonReader.nextString());
-                        Log.d("Json","Storing name");
+                        Log.d("Json-C","Storing name");
                     } else {
                         jsonReader.skipValue();
                     }
@@ -105,9 +105,9 @@ public class FragmentCategories extends Fragment {
             }
             jsonReader.endArray();
             jsonReader.endObject();
-            Log.d("Json","Finished parsing");
+            Log.d("Json-C","Finished parsing");
         } catch(Exception e) {
-            Log.d("Json stream reader",e.toString());
+            Log.d("Json-C",e.toString());
         }
     }
 
@@ -115,8 +115,8 @@ public class FragmentCategories extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int selected, long l) {
             MainActivity activity = (MainActivity) getActivity();
-            activity.setCategory(categories.get(selected));
-            Log.d("","Setted category");
+            activity.setSearchText(categories.get(selected));
+            Log.d("Cat","Setted category");
         }
     };
 }

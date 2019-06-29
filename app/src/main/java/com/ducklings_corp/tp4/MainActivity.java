@@ -14,22 +14,11 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 
-enum ProgramState {
-    WAITING_SEARCH_METHOD,
-    SEARCH_BY_CATEGORY_WAITING,
-    SEARCH_BY_TEXT_WAITING,
-    SEARCH_BY_LOCATION_WAITING_LOC,
-    SEARCH_BY_LOCATION_WAITING_CAT,
-    DISPLAYING_RESULTS
-}
-
 public class MainActivity extends Activity {
     FragmentManager manager;
     FragmentTransaction transaction;
 
-    private String _category;
-    private String _text;
-    ProgramState state = ProgramState.WAITING_SEARCH_METHOD;
+    private String _searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +27,7 @@ public class MainActivity extends Activity {
 
         createFragment(R.id.categoriesFragment,new FragmentCategories(),"categories");
         createFragment(R.id.placesFragment,new FragmentPlaces(),"places");
+        createFragment(R.id.textFragment,new FragmentText(),"text");
     }
 
     private void createFragment(int id,Fragment fragment, String tag) {
@@ -48,37 +38,31 @@ public class MainActivity extends Activity {
     }
 
     public void search(View view) {
-        findViewById(R.id.categoriesFragment).setVisibility(View.INVISIBLE);
-        findViewById(R.id.textFragment).setVisibility(View.INVISIBLE);
-        findViewById(R.id.geolocationFragment).setVisibility(View.INVISIBLE);
-        findViewById(R.id.placesFragment).setVisibility(View.INVISIBLE);
+        findViewById(R.id.categoriesFragment).setVisibility(View.GONE);
+        findViewById(R.id.textFragment).setVisibility(View.GONE);
+        findViewById(R.id.geolocationFragment).setVisibility(View.GONE);
+        findViewById(R.id.placesFragment).setVisibility(View.GONE);
 
         Button button = (Button)view;
         String tag = button.getTag().toString();
 
         if(tag.compareTo("by_cat")==0) {
-            state = ProgramState.SEARCH_BY_CATEGORY_WAITING;
             FrameLayout categoryFragment = findViewById(R.id.categoriesFragment);
             categoryFragment.setVisibility(View.VISIBLE);
+        } else if(tag.compareTo("by_text")==0) {
+            FrameLayout textFragment = findViewById(R.id.textFragment);
+            textFragment.setVisibility(View.VISIBLE);
         }
     }
-
-    public void setCategory(String category) {
-        _category = category;
-        findViewById(R.id.categoriesFragment).setVisibility(View.INVISIBLE);
-        Log.d("","Displaying results");
+    public void setSearchText(String searchText) {
+        _searchText = searchText;
+        findViewById(R.id.categoriesFragment).setVisibility(View.GONE);
+        findViewById(R.id.textFragment).setVisibility(View.GONE);
         displayResults();
     }
 
     public void displayResults() {
         findViewById(R.id.placesFragment).setVisibility(View.VISIBLE);
-        FragmentPlaces places = (FragmentPlaces)manager.findFragmentByTag("places");
-        if(state.equals(ProgramState.SEARCH_BY_CATEGORY_WAITING)) {
-            places.update(_category);
-        } else if(state.equals(ProgramState.SEARCH_BY_TEXT_WAITING)) {
-            places.update(_text);
-        }
-
-        state = ProgramState.WAITING_SEARCH_METHOD;
+        ((FragmentPlaces)manager.findFragmentByTag("places")).update(_searchText);
     }
 }
