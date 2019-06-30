@@ -11,38 +11,38 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:tag="by_cat"
             android:text="Por categoria"
             android:onClick="search"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:tag="by_text"
             android:text="Por texto"
             android:onClick="search"/>
-        <Button
+        <!--<Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tag="by_loc"
             android:text="Por lugar"
-            android:onClick="search"/>
+            android:onClick="search"/>-->
     </LinearLayout>
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/categoriesFragment"
         android:visibility="gone">
     </FrameLayout>
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textFragment"
         android:visibility="gone">
     </FrameLayout>
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/geolocationFragment"
         android:visibility="gone">

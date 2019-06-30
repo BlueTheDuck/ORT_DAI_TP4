@@ -93,7 +93,6 @@ public class FragmentCategories extends Fragment {
                 //Log.d("Json",jsonReader.nextName());
                 while (jsonReader.hasNext()) {
                     String name = jsonReader.nextName();
-                    Log.d("Json-C",name);
                     if(name.compareTo("nombre")==0) {
                         categories.add(jsonReader.nextString());
                         Log.d("Json-C","Storing name");

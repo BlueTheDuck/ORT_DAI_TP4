@@ -11,7 +11,10 @@ public class FragmentText extends Fragment implements View.OnClickListener {
     View view;
 
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        view = layoutInflater.inflate(R.layout.places_fragment,viewGroup,false);
+        view = layoutInflater.inflate(R.layout.text_fragment,viewGroup,false);
+
+        view.findViewById(R.id.textSearchButton).setOnClickListener(this);
+
         return view;
     }
 
